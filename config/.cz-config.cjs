@@ -1,34 +1,34 @@
 module.exports = {
   types: [
-    { value: "🎉 init", name: "init:        🎉 Initial commit" },
-    { value: "✨ feat", name: "feat:        ✨ New feature" },
-    { value: "🐛 fix", name: "fix:         🐛 Bug fix" },
-    { value: "📚 docs", name: "docs:        📚 Documentation" },
-    { value: "💄 style", name: "style:       💄 Styling" },
-    { value: "♻️ refactor", name: "refactor:    ♻️  Refactoring" },
-    { value: "⚡ perf", name: "perf:        ⚡ Performance" },
-    { value: "🧪 test", name: "test:        🧪 Tests" },
-    { value: "🔧 chore", name: "chore:       🔧 Configuration" },
-    { value: "🧱 ci", name: "ci:          🧱 Infrastructure" },
-    { value: "📦 build", name: "build:       📦 Package.json in JS" },
-    { value: "🗃️ raw", name: "raw:         🗃️  Data" },
-    { value: "🧹 cleanup", name: "cleanup:     🧹 Code cleanup" },
-    { value: "🗑️ remove", name: "remove:      🗑️  Removing a file" },
-    { value: "🚚 move", name: "move:        🚚 Move/Rename" },
-    { value: "🔒 security", name: "security:    🔒 Security" },
-    { value: "♿ accessibility", name: "accessibility: ♿ Accessibility" },
-    { value: "📱 responsive", name: "responsive:  📱 Responsiveness" },
-    { value: "🔍 seo", name: "seo:         🔍 SEO" },
-    { value: "🔖 release", name: "release:     🔖 Version tag" },
-    { value: "🚀 deploy", name: "deploy:      🚀 Deploy" },
-    { value: "🚧 wip", name: "wip:         🚧 Work in progress" },
-    { value: "💥 breaking", name: "breaking:    💥 Reverting changes" },
-    { value: "🏷️ types", name: "types:       🏷️  Typing" },
-    { value: "🥅 error", name: "error:       🥅 Error handling" },
-    { value: "💫 animation", name: "animation:   💫 Animations and transitions" },
-    { value: "💡 comments", name: "comments:    💡 Comments" },
-    { value: "📝 text", name: "text:        📝 Text" },
-    { value: "🔜 ideas", name: "ideas:       🔜 Ideas list (tasks)" },
+    { value: "🎉 init", name: "🎉 init:        Initial commit" },
+    { value: "✨ feat", name: "✨ feat:        New feature" },
+    { value: "🐛 fix", name: "🐛 fix:         Bug fix" },
+    { value: "📚 docs", name: "📚 docs:        Documentation" },
+    { value: "💄 style", name: "💄 style:       Styling" },
+    { value: "♻️ refactor", name: "♻️  refactor:    Refactoring" },
+    { value: "⚡ perf", name: "⚡ perf:        Performance" },
+    { value: "🧪 test", name: "🧪 test:        Tests" },
+    { value: "🔧 chore", name: "🔧 chore:       Configuration" },
+    { value: "🧱 ci", name: "🧱 ci:          CI/CD config" },
+    { value: "📦 build", name: "📦 build:       Build system" },
+    { value: "🗃️ raw", name: "🗃️  raw:        Raw data" },
+    { value: "🧹 cleanup", name: "🧹 cleanup:     Code cleanup" },
+    { value: "🗑️ remove", name: "🗑️  remove:      Removing files" },
+    { value: "🚚 move", name: "🚚 move:        Move/Rename" },
+    { value: "🔒 security", name: "🔒 security:    Security" },
+    { value: "♿ accessibility", name: "♿ accessibility: Accessibility" },
+    { value: "📱 responsive", name: "📱 responsive:  Responsiveness" },
+    { value: "🔍 seo", name: "🔍 seo:         SEO" },
+    { value: "🔖 release", name: "🔖 release:     Release version" },
+    { value: "🚀 deploy", name: "🚀 deploy:      Deployment" },
+    { value: "🚧 wip", name: "🚧 wip:         Work in progress" },
+    { value: "💥 breaking", name: "💥 breaking:    Breaking change" },
+    { value: "🏷️ types", name: "🏷️  types:       Types and interfaces" },
+    { value: "🥅 error", name: "🥅 error:       Error handling" },
+    { value: "💫 animation", name: "💫 animation:   Animations" },
+    { value: "💡 comments", name: "💡 comments:    Comments" },
+    { value: "📝 text", name: "📝 text:        Text content" },
+    { value: "🔜 ideas", name: "🔜 ideas:       Ideas / tasks" },
   ],
 
   scopes: [
@@ -60,25 +60,30 @@ module.exports = {
 
   messages: {
     type: "Select the type of commit:",
-    scope: "Select the scope (or leave blank):",
-    customScope: "Enter the custom scope:",
-    subject: "Enter a short and clear description of the commit:",
-    body: "Enter a more detailed description (optional):",
-    breaking: "List breaking changes (optional):",
-    footer: "Enter the Jira task ID or references (e.g., JIRA-123):",
-    confirmCommit: "Confirm the commit above?",
+    scope: "Select a scope (or leave blank):",
+    customScope: "Enter a custom scope:",
+    subject: "Short description:",
+
+    // ⭐ NEW QUESTION
+    body: "Describe something (optional):",
+
+    breaking: "Describe breaking changes (optional):",
+
+    // ⭐ PR / Issue automation
+    footer: "Add Issue reference: (e.g. Fixes #123 or Closes #19)",
+
+    confirmCommit: "Confirm this commit?",
   },
 
-  allowCustomScopes: true,
-  skipQuestions: ["body", "breaking"],
-  subjectLimit: 100,
-  breaklineChar: "|",
-  footerPrefix: "Refs:",
+  skipQuestions: ["breaking"],
 
-  // Final commit template
-  format: ({ type, scope, subject, footer }) => {
+  subjectLimit: 120,
+  breaklineChar: "|",
+
+  format: ({ type, scope, subject, body, footer }) => {
     const scopeStr = scope ? `(${scope})` : "";
-    const footerStr = footer ? ` - ${footer}` : "";
-    return `${type}${scopeStr}: ${subject}${footerStr}`;
+    const bodyStr = body ? `\n\n${body}` : "";
+    const footerStr = footer ? `\n\n${footer}` : "";
+    return `${type}${scopeStr}: ${subject}${bodyStr}${footerStr}`;
   },
 };
