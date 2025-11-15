@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "prepare": "husky",
+    "commitlint": "commitlint --edit",
+    "commit": "node config/commitizen-bypass.cjs"
   },
   "dependencies": {
     "next": "16.0.3",
@@ -14,13 +17,30 @@
     "react-dom": "19.2.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "commitizen": "^4.3.1",
+    "cz-customizable": "^5.5.0",
     "eslint": "^9",
     "eslint-config-next": "16.0.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.6",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "./config/.cz-config.cjs"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "eslint --fix"
   }
 }
